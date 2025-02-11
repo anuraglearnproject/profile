@@ -8,15 +8,17 @@ import { Component, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
-constructor(private render:Renderer2){
+  constructor(private render: Renderer2) {
 
-}
+  }
 
   ngOnInit(): void {
-    this.render.setStyle(document.body,'background-image','url(\'/img/home.jpg\')');
+    const baseHref = document.querySelector('base')?.getAttribute('href') || '/';
+    const backgroundUrl = baseHref + 'img/home.jpg';
+    this.render.setStyle(document.body, 'background-image', 'url(' + backgroundUrl + ')');
   }
 
   ngOnDestroy(): void {
-    this.render.removeStyle(document.body,'background-image');
+    this.render.removeStyle(document.body, 'background-image');
   }
 }
