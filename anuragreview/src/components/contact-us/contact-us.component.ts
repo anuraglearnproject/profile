@@ -1,14 +1,16 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-contact-us',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './contact-us.component.html',
   styleUrl: './contact-us.component.css'
 })
 export class ContactUsComponent {
 
+  submitMsg: string = "This is a dummy form. I\'m working on it to make it functional.";
   contactForm: FormGroup;
 
   constructor(private fb: FormBuilder) {
@@ -26,7 +28,7 @@ export class ContactUsComponent {
       
       this.contactForm.reset();
     } else {
-      
+      this.contactForm.markAllAsTouched();
     }
   }
 }

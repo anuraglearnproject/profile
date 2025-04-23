@@ -1,29 +1,84 @@
 <div class="container my-5">
     <div class="row justify-content-center">
-
-        <!-- Contact Form Section -->
-        <div class="col-md-7">
-            <div class="card p-4 shadow">
-                <h3 class="fw-bold">Send us a message</h3>
-                <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
-                    <div class="mb-3">
-                        <input type="text" id="name" class="form-control" formControlName="name" placeholder="Enter your name">
-                    </div>
-                    <div class="mb-3">
-                        <input type="email" id="email" class="form-control" formControlName="email" placeholder="Enter your email">
-                    </div>
-                    <div class="mb-3">
-                        <input type="text" id="contact" class="form-control" formControlName="contact" placeholder="Enter your phone number">
-                    </div>
-                    <div class="mb-3">
-                        <input type="text" id="subject" class="form-control" formControlName="subject" placeholder="Enter subject">
-                    </div>
-                    <div class="mb-3">
-                        <textarea id="message" class="form-control" formControlName="message" rows="3" placeholder="Enter your message"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100">Submit</button>
-                </form>
+  
+      <!-- Contact Form Section -->
+      <div class="col-md-7">
+        <div class="card p-4 shadow">
+          <h4 class="text-center">{{submitMsg}}</h4>
+          <h3 class="fw-bold">Send us a message</h3>
+          <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+            
+            <!-- Name -->
+            <div class="mb-3">
+              <input type="text" id="name" class="form-control" formControlName="name" placeholder="Enter your name">
+              <div class="text-danger" *ngIf="contactForm.get('name')?.touched && contactForm.get('name')?.hasError('required')">
+                Name is required.
+              </div>
             </div>
+  
+            <!-- Email -->
+            <div class="mb-3">
+              <input type="email" id="email" class="form-control" formControlName="email" placeholder="Enter your email">
+              <div class="text-danger" *ngIf="contactForm.get('email')?.touched">
+                <div *ngIf="contactForm.get('email')?.hasError('required')">Email is required.</div>
+                <div *ngIf="contactForm.get('email')?.hasError('email')">Invalid email format.</div>
+              </div>
+            </div>
+  
+            <!-- Contact -->
+            <div class="mb-3">
+              <input type="text" id="contact" class="form-control" formControlName="contact" placeholder="Enter your phone number">
+              <div class="text-danger" *ngIf="contactForm.get('contact')?.touched && contactForm.get('contact')?.hasError('required')">
+                Phone number is required.
+              </div>
+            </div>
+  
+            <!-- Subject -->
+            <div class="mb-3">
+              <input type="text" id="subject" class="form-control" formControlName="subject" placeholder="Enter subject">
+              <div class="text-danger" *ngIf="contactForm.get('subject')?.touched && contactForm.get('subject')?.hasError('required')">
+                Subject is required.
+              </div>
+            </div>
+  
+            <!-- Message -->
+            <div class="mb-3">
+              <textarea id="message" class="form-control" formControlName="message" rows="3" placeholder="Enter your message"></textarea>
+              <div class="text-danger" *ngIf="contactForm.get('message')?.touched && contactForm.get('message')?.hasError('required')">
+                Message is required.
+              </div>
+            </div>
+  
+            <button type="submit" class="btn btn-primary w-100" 
+            data-bs-toggle="modal" data-bs-target="#submitModal">Submit</button>
+          </form>
         </div>
+      </div>
     </div>
-</div>
+  </div>
+  
+
+  <!-- Modal -->
+<div class="modal fade" id="submitModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Hello {{ contactForm.get('name')?.value || "Sir/Mam" }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        
+        <!-- Modal Body -->
+        <div class="modal-body">
+          {{submitMsg}}
+          Working on to integrate the Web API.
+        </div>
+        
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
