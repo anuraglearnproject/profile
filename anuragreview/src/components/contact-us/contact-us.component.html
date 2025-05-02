@@ -3,9 +3,8 @@
   
       <!-- Contact Form Section -->
       <div class="col-md-7">
-        <div class="card p-4 shadow">
-          <h4 class="text-center">{{submitMsg}}</h4>
-          <h3 class="fw-bold">Send us a message</h3>
+        <div class="card p-4 pt-2 shadow" [ngClass]="{ 'disabled': loading === 'loading' }">
+          <h2 class="fw-bold text-center mb-3">Send me a message</h2>
           <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
             
             <!-- Name -->
@@ -26,12 +25,12 @@
             </div>
   
             <!-- Contact -->
-            <div class="mb-3">
+            <!-- <div class="mb-3">
               <input type="text" id="contact" class="form-control" formControlName="contact" placeholder="Enter your phone number">
               <div class="text-danger" *ngIf="contactForm.get('contact')?.touched && contactForm.get('contact')?.hasError('required')">
                 Phone number is required.
               </div>
-            </div>
+            </div> -->
   
             <!-- Subject -->
             <div class="mb-3">
@@ -50,35 +49,22 @@
             </div>
   
             <button type="submit" class="btn btn-primary w-100" 
-            data-bs-toggle="modal" data-bs-target="#submitModal">Submit</button>
+            >{{ loading === 'loading' ? "Submitting..." : "Submit"}}</button>
           </form>
         </div>
       </div>
     </div>
   </div>
   
-
-  <!-- Modal -->
-<div class="modal fade" id="submitModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Hello {{ contactForm.get('name')?.value || "Sir/Mam" }}</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        
-        <!-- Modal Body -->
-        <div class="modal-body">
-          {{submitMsg}}
-          Working on to integrate the Web API.
-        </div>
-        
-        <!-- Modal Footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div>
-      </div>
+  <ng-template #submitModal let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Hello {{ name || "Sir/Mam" }}</h5>
+      <button type="button" class="btn-close" (click)="modal.close()"></button>
     </div>
-  </div>
+    <div class="modal-body">
+      {{ submitMsg }}
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.close()">Close</button>
+    </div>
+  </ng-template>

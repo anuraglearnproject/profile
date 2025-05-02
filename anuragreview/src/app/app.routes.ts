@@ -4,12 +4,14 @@ import { ContactUsComponent } from '../components/contact-us/contact-us.componen
 import { AboutComponent } from '../components/about/about.component';
 import { HomeComponent } from '../components/home/home.component';
 import { environment } from '../services/environment'
+import { LoginComponent } from '../components/login/login.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },   
     { path: 'home', component: HomeComponent },
     { path: 'contact', component: ContactUsComponent },
     { path: 'about', component: AboutComponent },
+    { path: 'login', component: LoginComponent },
     { path: '**', component: PageLoaderComponent }
 
 ];

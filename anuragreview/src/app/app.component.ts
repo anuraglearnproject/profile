@@ -14,8 +14,9 @@ import { environment } from '../services/environment';
 export class AppComponent {
   title = 'anuragreview';
   search: string = "";
-  searchSite: string = environment.isLocalhost 
-  ? APP_CONSTANTS["localhost.SEARCH_SITE"]: APP_CONSTANTS["SEARCH_SITE"];
+  // searchSite: string = environment.isLocalhost 
+  // ? APP_CONSTANTS["localhost.SEARCH_SITE"]: APP_CONSTANTS["SEARCH_SITE"];
+  searchSite: string = APP_CONSTANTS["SEARCH_SITE"];
 
   searchSubmit(){
     const url = `${this.searchSite}?query=${this.search}`;
