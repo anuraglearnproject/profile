@@ -18,5 +18,6 @@ export class PageLoaderComponent implements OnInit {
     this.dataServe.currentUrl$.subscribe(url => {
       this.url = url;
     });
+    this.dataServe.loadData();
   }
 }

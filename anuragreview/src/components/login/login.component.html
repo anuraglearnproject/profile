@@ -1,51 +1,50 @@
 <div class="container mt-5">
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <div class="card shadow">
-          <div class="card-body">
-            <h4 class="card-title text-center">Login</h4>
-            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  
-              <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input
-                  type="email"
-                  class="form-control"
-                  id="email"
-                  formControlName="email"
-                  [ngClass]="{'is-invalid': submitted && f['email'].errors}"
-                />
-                <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
-                  <div *ngIf="f['email'].errors['required']">Email is required</div>
-                  <div *ngIf="f['email'].errors['email']">Please enter a valid email</div>
-                </div>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow" [ngClass]="{ 'disabled': loading === 'loading...' }">
+        <div class="card-body">
+          <h4 class="card-title text-center">Login</h4>
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" formControlName="email"
+                [ngClass]="{'is-invalid': submitted && f['email'].errors}" />
+              <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                <div *ngIf="f['email'].errors['required']">Email is required</div>
+                <div *ngIf="f['email'].errors['email']">Please enter a valid email</div>
               </div>
-  
-              <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input
-                  type="password"
-                  class="form-control"
-                  id="password"
-                  formControlName="password"
-                  [ngClass]="{'is-invalid': submitted && f['password'].errors}"
-                />
-                <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
-                  <div *ngIf="f['password'].errors['required']">Password is required</div>
-                  <div *ngIf="f['password'].errors['minlength']">Minimum 6 characters</div>
-                </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" id="password" formControlName="password"
+                [ngClass]="{'is-invalid': submitted && f['password'].errors}" />
+              <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                <div *ngIf="f['password'].errors['required']">Password is required</div>
+                <div *ngIf="f['password'].errors['minlength']">Minimum 6 characters</div>
               </div>
-  
-              <button type="submit" class="btn btn-primary w-100">Login</button>
-  
-            </form>
-  
-            <div *ngIf="loginSuccess" class="alert alert-success mt-3" role="alert">
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">
+              {{ loading === 'loading...' ? "Login Sending..." : "Login" }}
+            </button>
+
+          </form>
+          <ng-container *ngIf="loginAttempted">
+            <div *ngIf="loginSuccess; else loginFailed" class="alert alert-success mt-3" role="alert">
               You are logged in!
             </div>
-          </div>
+          
+            <ng-template #loginFailed>
+              <div class="alert alert-danger mt-3" role="alert">
+                Login failed!
+              </div>
+            </ng-template>
+          </ng-container>
+          
         </div>
       </div>
     </div>
   </div>
-  
+</div>
