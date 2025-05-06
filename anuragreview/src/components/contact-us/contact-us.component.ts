@@ -8,7 +8,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   selector: 'app-contact-us',
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './contact-us.component.html',
-  styleUrl: './contact-us.component.css'
+  styleUrls: ['./contact-us.component.css', '../../shared/styles/common.scss']
 })
 export class ContactUsComponent {
   @ViewChild('submitModal') submitModal!: TemplateRef<any>;
@@ -45,7 +45,7 @@ export class ContactUsComponent {
         this.submitMsg = success
           ? "Thank you for submitting the form. We will connect with you."
           : "There was a problem processing your request. Please try again later.";
-       setTimeout(() => this.showSubmitModal(success), 1000); 
+        setTimeout(() => this.showSubmitModal(success), 1000);
       },
       error: (error) => {
         console.error(error);
@@ -53,6 +53,7 @@ export class ContactUsComponent {
         setTimeout(() => this.showSubmitModal(false), 1000);
       }
     });
+    (document.activeElement as HTMLElement)?.blur();
   }
 
   showSubmitModal(clearName: boolean = false) {
@@ -67,13 +68,9 @@ export class ContactUsComponent {
         this.clearNameOnModalClose();
       }
     });
-    
-    let el = document.activeElement as HTMLElement;
-    if (el) {
-      el.blur();
-    }
+
   }
-  
+
   clearNameOnModalClose() {
     this.name = "";
   }

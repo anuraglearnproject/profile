@@ -9,7 +9,7 @@ import { finalize } from 'rxjs';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css', '../../shared/styles/common.scss']
 })
 export class LoginComponent {
   loginForm: FormGroup;
